@@ -809,6 +809,13 @@ If you wish to silence this error and use classic mode, you can:
         fs.rename(destination_tmp, destination, ec);
         if (ec)
         {
+            // sleep and try again
+            Debug::print("*** !!! *** Error: while renaming ", fs::u8string(destination_tmp), " to ", fs::u8string(destination), " ; retrying...\n ");
+            std::this_thread::sleep_for(std::chrono::milliseconds{50});
+            fs.rename(destination_tmp, destination, ec);
+        }
+        if (ec)
+        {
             return {Strings::concat(PRELUDE,
                                     "Error: while renaming ",
                                     fs::u8string(destination_tmp),
