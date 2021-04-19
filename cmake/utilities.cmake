@@ -265,3 +265,13 @@ function(vcpkg_target_add_sourcelink TARGET repoOwner repoName gitFullSha1)
         message(STATUS "SOURCELINK support added, pointing to ${githubBaseUrl}")
     endif()
 endfunction()
+
+function(vcpkg_target_add_manifest TARGET)
+    if(MSVC)
+        configure_file("${CMAKE_SOURCE_DIR}/src/longpathaware.manifest.in"
+                       "${CMAKE_CURRENT_BINARY_DIR}/longpathaware.manifest"
+                       COPYONLY)
+        target_sources(${TARGET} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/longpathaware.manifest")
+        message(STATUS "Manifest added to ${TARGET} for long path support")
+    endif()
+endfunction()

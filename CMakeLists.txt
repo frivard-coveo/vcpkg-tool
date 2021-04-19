@@ -170,6 +170,7 @@ vcpkg_target_add_warning_options(vcpkg)
 if(VCPKG_EMBED_GIT_SHA)
     vcpkg_target_add_sourcelink(vcpkg "frivard-coveo" "vcpkg-tool" ${VCPKG_VERSION})
 endif()
+vcpkg_target_add_manifest(vcpkg) # add support for long paths on Windows (> 260 chars)
 
 # === Target: vcpkg-test ===
 
